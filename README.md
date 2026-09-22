@@ -11,6 +11,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-3776ab.svg)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/Docker-recommended-2496ed.svg)](https://www.docker.com/)
 [![Interfaces](https://img.shields.io/badge/interfaces-REST%20%7C%20MCP-14b8a6.svg)](#interfaces)
+[![DeepWiki](https://img.shields.io/badge/DeepWiki-AI_Docs-5A5AFF?logo=bookstack&logoColor=white)](https://deepwiki.com/BugTraceAI/BugTraceAI-API)
 
 BugTraceAI-API is the independent API-testing engine in the BugTraceAI ecosystem. It discovers API routes, resolves OpenAPI contracts, runs controlled security checks, correlates evidence, investigates hypotheses and produces portable reports.
 
