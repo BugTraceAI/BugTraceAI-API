@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "active_provider": "openrouter",
+  "min_severity": "info",
+  "_comment": "AI analysis (Phase 5) settings. 'active_provider' must match a file in config/providers/<id>.json. Override at runtime with env vars: APEX_ENABLED, APEX_PROVIDER, APEX_MIN_SEVERITY."
+}

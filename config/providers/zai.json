@@ -1,0 +1,27 @@
+{
+  "id": "zai",
+  "name": "Z.ai",
+  "kind": "openai",
+  "base_url": "https://api.z.ai/api/coding/paas/v4/chat/completions",
+  "api_key_env": "GLM_API_KEY",
+  "api_key_hint": "...",
+  "model": "glm-4.5",
+  "models": [
+    "glm-4.7-flash",
+    "glm-4.5-flash",
+    "glm-4.6",
+    "glm-4.7-flashx",
+    "glm-5",
+    "glm-4.7",
+    "glm-4.5-air",
+    "glm-4.5-airx",
+    "glm-4.5"
+  ],
+  "headers": {
+    "Accept-Language": "en-US,en"
+  },
+  "options": {
+    "temperature": 0.1,
+    "max_tokens": 4096
+  }
+}

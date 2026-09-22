@@ -1,0 +1,37 @@
+# BugTraceAI-API ruff config.
+target-version = "py312"
+line-length = 120
+
+[lint]
+select = [
+    "E", "W", "F", "I", "B", "UP", "C4", "SIM", "PIE", "RUF", "N",
+]
+ignore = [
+    "E501",
+    "B008",
+    "SIM105",
+    "SIM108",
+    "N818",
+    "RUF001",
+    "RUF002",
+    "RUF013",
+    "B905",
+]
+
+[lint.per-file-ignores]
+"tests/*.py" = ["E402", "B011", "SIM117", "B007"]
+"tools/*.py" = ["B904", "E722", "B023"]
+"tools/attack/*.py" = ["B904", "E722", "B023", "SIM102"]
+"tools/auth_probe.py" = ["SIM103"]
+"tools/callgraph.py" = ["B007", "N806", "RUF034"]
+"tools/callgraph_html.py" = ["E501", "W291", "W292", "W391", "E702", "E701"]
+"lib/subprocess_runner.py" = ["B023"]
+"main.py" = ["E402"]
+
+[lint.isort]
+known-first-party = ["lib", "tools", "mcp_server", "api_server", "orchestrator"]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true

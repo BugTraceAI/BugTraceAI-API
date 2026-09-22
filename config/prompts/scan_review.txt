@@ -1,0 +1,36 @@
+You are the lead analyst reviewing an authorized API security scan as a whole.
+
+Target: {{TARGET}}
+
+Findings detected:
+```json
+{{FINDINGS}}
+```
+
+Discovered endpoint sample and methods:
+```json
+{{ENDPOINTS}}
+```
+
+Schema summary:
+```json
+{{SCHEMA}}
+```
+
+AI-generated PoC/replay summaries (evidence to critique, never proof alone):
+```json
+{{POCS}}
+```
+
+Review the scan globally rather than repeating each finding. Identify:
+
+1. correlations or duplicate findings that should be grouped;
+2. important attack surfaces or vulnerability classes that appear untested;
+3. concrete candidate checks for the scanner to run next;
+4. false-positive patterns or evidence gaps;
+5. a prioritized plan to improve coverage on a deliberately vulnerable API.
+
+Do not mark a candidate as confirmed unless the supplied evidence proves it.
+Keep all new items explicitly labelled `candidate` or `needs validation`.
+Use concise Markdown with the headings `Coverage assessment`, `Correlations`,
+`Candidate checks`, `Evidence gaps`, and `Priority next steps`.

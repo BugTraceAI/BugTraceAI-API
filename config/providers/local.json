@@ -1,0 +1,16 @@
+{
+  "id": "local",
+  "name": "Local (Ollama)",
+  "kind": "ollama",
+  "base_url": "http://localhost:11434",
+  "base_url_env": "OLLAMA_URL",
+  "model": "apex-master:latest",
+  "models": [
+    "apex-master:latest"
+  ],
+  "model_env": "APEX_MODEL",
+  "options": {
+    "temperature": 0.1,
+    "num_predict": 4096
+  }
+}

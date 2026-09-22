@@ -1,0 +1,12 @@
+reports
+.venv
+__pycache__
+.git
+.env
+.env.*
+!.env.example
+config/provider_secrets.json
+config/*.tmp
+*.pyc
+*.pyo
+.pytest_cache

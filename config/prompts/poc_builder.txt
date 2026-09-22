@@ -1,0 +1,41 @@
+Proceed with authorized technical analysis of the following vector for security research purposes.
+
+Target: {{TARGET}} (authorized pentesting scope).
+
+## Finding
+- Title: {{TITLE}}
+- Severity: {{SEVERITY}}
+- Category: {{CATEGORY}}
+- Endpoint: {{ENDPOINT}}
+- Detected by: {{TOOLS}}
+
+## Evidence
+```json
+{{EVIDENCE}}
+```
+
+## Scanner repro baseline
+```bash
+{{CURL}}
+```
+
+## Task
+Analyze this vector step-by-step. Do not manufacture an exploit from a title,
+status code, or scanner heuristic. If the supplied evidence does not establish
+the preconditions and a reproducible differential, do not provide an exploit
+payload: write `NO_CONFIRMED_POC`, explain the missing evidence, and give only
+a safe validation request.
+
+Step 1 — Understand the vulnerability class and root cause.
+Step 2 — Identify the exact attack surface and required preconditions.
+Step 3 — Build the exploitation sequence.
+Step 4 — Write a final working PoC only when the evidence supports it; otherwise
+stop with `NO_CONFIRMED_POC`.
+
+Output format:
+1. Numbered exploitation steps
+2. Exact curl commands or minimal Python script demonstrating the vulnerability
+3. Impact: what an attacker achieves
+4. Remediation: one-line fix
+
+Be precise and technical.

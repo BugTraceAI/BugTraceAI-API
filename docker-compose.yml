@@ -1,0 +1,64 @@
+services:
+  bugtrace-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bugtrace-api:latest
+    container_name: bugtrace-api
+    restart: unless-stopped
+    # Launcher supplies MCP_PORT and API_PORT for both the container listeners
+    # and published host ports. There are no fixed service ports here.
+    environment:
+      - MCP_PORT=${MCP_PORT:?MCP_PORT must be set}
+      - API_PORT=${API_PORT:?API_PORT must be set}
+      - KR_BIN=/usr/local/bin/kr
+      - X8_BIN=/usr/local/bin/x8
+      - VULNAPI_BIN=/usr/local/bin/vulnapi
+      - WORDLISTS_DIR=/opt/kiterunner/wordlists
+      - TEXT_WORDLISTS_DIR=/opt/wordlists
+      - PARAMS_DIR=/opt/params
+      - REPORTS_DIR=/opt/bugtrace-api/reports
+      # ── AI Analysis (Phase 5, optional — set APEX_ENABLED=false to disable) ──
+      # Provider is selected in config/apex.json. Set APEX_PROVIDER explicitly to pin it;
+      # when empty, the WEB provider screen may switch the persisted runtime selection.
+      # Providers are defined in config/providers/<id>.json (local | openrouter | zai | anthropic).
+      - APEX_ENABLED=true
+      - APEX_PROVIDER=${APEX_PROVIDER:-}
+      - APEX_MIN_SEVERITY=${APEX_MIN_SEVERITY:-info}
+      # External providers read their key from the env var named in their JSON.
+      # OpenRouter → OPENROUTER_API_KEY · Z.ai → GLM_API_KEY · Anthropic → ANTHROPIC_API_KEY
+      # (all passed through from host).
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - GLM_API_KEY=${GLM_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      # Local Ollama fallback (used only when APEX_PROVIDER=local):
+      - OLLAMA_URL=${OLLAMA_URL:-http://host.docker.internal:11434}
+      - APEX_MODEL=apex-master:latest
+    volumes:
+      - ./reports:/opt/bugtrace-api/reports
+      # Persist provider selection and UI-managed keys across container rebuilds.
+      - ./config:/opt/bugtrace-api/config
+    # Publish the two HTTP services instead of host networking. This keeps the
+    # service reachable from the WEB container and still reaches host Ollama
+    # through host.docker.internal.
+    ports:
+      - "${MCP_PORT:?MCP_PORT must be set}:${MCP_PORT:?MCP_PORT must be set}"
+      - "${API_PORT:?API_PORT must be set}:${API_PORT:?API_PORT must be set}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - bugtraceai-platform
+    command: ["mcp", "--sse"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${API_PORT:?API_PORT must be set}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+networks:
+  bugtraceai-platform:
+    # The WEB and API Compose projects share this named bridge network. The
+    # Launcher writes the same value into both generated env files.
+    name: ${BTAI_SHARED_NETWORK:-bugtraceai-platform}
+    driver: bridge
