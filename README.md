@@ -1,5 +1,9 @@
 # BugTraceAI-API
 
+<p align="center">
+  <img src="images/BTAI_Logo_GitHub.png" alt="BugTraceAI" width="180" />
+</p>
+
 > Standalone, evidence-first API security testing over REST and MCP.
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-ff7657.svg)](LICENSE)
@@ -40,6 +44,24 @@ flowchart LR
 ```
 
 The final report distinguishes confirmed evidence from suspicious, hardening and insufficient evidence states. A successful tool execution is not treated as proof of a vulnerability.
+
+## Visual overview
+
+BugTraceAI-API can run independently or as the API engine behind BugTraceAI-WEB.
+The same workflow exposes target setup, live pipeline progress, and portable
+evidence-rich reports:
+
+<p align="center">
+  <img src="images/bugtraceai-api001.png" alt="BugTraceAI API scan progress in the WEB client" width="100%" />
+</p>
+
+<p align="center"><em>API scan configuration and live pipeline progress.</em></p>
+
+<p align="center">
+  <img src="images/bugtraceai-api002.png" alt="BugTraceAI API analysis report" width="100%" />
+</p>
+
+<p align="center"><em>Evidence-rich API analysis report with coverage assessment and correlations.</em></p>
 
 ## Quick start with Docker Compose
 
