@@ -7,11 +7,10 @@
 > Standalone, evidence-first API security testing over REST and MCP.
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-ff7657.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.4.4--beta-8b5cf6.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.4.11--beta-8b5cf6.svg)](VERSION)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776ab.svg)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/Docker-recommended-2496ed.svg)](https://www.docker.com/)
 [![Interfaces](https://img.shields.io/badge/interfaces-REST%20%7C%20MCP-14b8a6.svg)](#interfaces)
-[![DeepWiki](https://img.shields.io/badge/DeepWiki-AI_Docs-5A5AFF?logo=bookstack&logoColor=white)](https://deepwiki.com/BugTraceAI/BugTraceAI-API)
 
 BugTraceAI-API is the independent API-testing engine in the BugTraceAI ecosystem. It discovers API routes, resolves OpenAPI contracts, runs controlled security checks, correlates evidence, investigates hypotheses and produces portable reports.
 
@@ -64,12 +63,33 @@ evidence-rich reports:
 
 <p align="center"><em>Evidence-rich API analysis report with coverage assessment and correlations.</em></p>
 
-## Quick start with Docker Compose
+## Installation
+
+Use the [universal Launcher](https://github.com/BugTraceAI/BugTraceAI-Launcher)
+to install any BugTraceAI product from one visual menu:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/BugTraceAI/BugTraceAI-Launcher/main/install.sh | bash
+```
+
+Choose `api` for this independent API-target scanner, or `web` for WEB plus
+both scanning engines; `full` also includes the CLI terminal TUI. The CLI
+web-scanning API/MCP backend is a separate product. Launcher 3.3.14+ supports
+component entry points: `./install.sh` and bare `./setup.sh` open that same
+menu with `api` suggested. Review the selection before installing.
+
+For direct setup in this checkout, use the Compose path below or
+`./scripts/install-runtime.sh` after configuring `.env`. The Launcher is the
+only guided installer; the runtime backend has no selection menu. Service commands such as `./setup.sh status` and
+`./setup.sh logs` continue to operate on this component. See
+[INSTALLATION.md](INSTALLATION.md) for the two installation paths.
+
+## Standalone Docker Compose
 
 ### Requirements
 
 - Docker Engine with Docker Compose v2
-- Linux `amd64` for the prebuilt Kiterunner, x8 and VulnAPI binaries in the current Dockerfile
+- A Docker runtime capable of running Linux `amd64` containers for the bundled Kiterunner, x8 and VulnAPI tools. Compose pins both build and runtime to `linux/amd64`; ARM hosts require amd64 emulation.
 - Network access from the container to the authorized target
 - Optional: an AI provider key or a local Ollama instance
 
@@ -77,17 +97,24 @@ evidence-rich reports:
 git clone https://github.com/BugTraceAI/BugTraceAI-API.git
 cd BugTraceAI-API
 cp .env.example .env
-docker compose up -d --build
+chmod 600 .env
+# Review API_PORT=8005 and MCP_PORT=8004; change occupied ports.
+./scripts/install-runtime.sh
 ```
 
-Compose requires `MCP_PORT` and `API_PORT` in `.env`. In a Launcher
+For a direct image build outside Compose, use `docker build --platform linux/amd64 .`.
+The native ARM toolchain is not packaged by this image; native macOS/ARM validation
+is still pending.
+
+Compose requires `MCP_PORT` and `API_PORT` in `.env`; the example supplies
+standalone defaults of 8004 and 8005. In a Launcher
 deployment those values are generated from the ports selected in the wizard;
 the API image does not impose its own listener or host-port values.
 
 Verify the service using the selected REST port:
 
 ```bash
-curl "http://localhost:<API_PORT>/health"
+curl -fsS http://localhost:8005/health
 ```
 
 Expected shape:
@@ -96,7 +123,7 @@ Expected shape:
 {
   "status": "ok",
   "service": "bugtraceai-api",
-  "version": "1.4.4-beta",
+  "version": "1.4.11-beta",
   "provider": "openrouter",
   "model": "minimax/minimax-m3",
   "api_key_configured": false
@@ -117,6 +144,46 @@ the API as `bugtrace-api:<API_PORT>`. Host Ollama is reached through
 `host.docker.internal`. Restrict access with a firewall or place the service
 behind an authenticated reverse proxy before using it outside a trusted
 network.
+
+### Preview the universal selection
+
+```bash
+git clone https://github.com/BugTraceAI/BugTraceAI-Launcher.git ~/bugtraceai-launcher
+cd ~/bugtraceai-launcher
+./launcher.sh plan --profile api
+./launcher.sh install --profile api
+```
+
+The Launcher configures ports and the shared Docker network. A profile preview
+does not download products, install dependencies or start services. Use the
+configured REST port instead of 8005 if you change the standalone default.
+
+### Install with your AI coding agent
+
+For a standalone API-target scanner, give this prompt to an agent with terminal
+access. To install the connected WEB platform instead, ask the agent to use the
+Launcher `web` profile (Launcher 3.3.14+).
+
+```text
+Install the standalone BugTraceAI-API service from this repository.
+
+Read README.md, SECURITY.md and the Docker Compose configuration first. Keep
+the installation in this checkout, preserve existing files and configuration,
+and do not use a private development repository. Follow INSTALLATION.md and use ./scripts/install-runtime.sh after preparing
+.env; this direct backend has no selection menu and preserves local files. Configure API_PORT and MCP_PORT from .env.example; if either
+port is occupied, choose and record an available port without overwriting
+existing secrets. Keep provider credentials in the local .env file, never in
+chat output or command logs.
+
+Build and start only BugTraceAI-API, then verify /health, /docs and the MCP
+endpoint using the configured ports. Do not launch a scan or send traffic to a
+target as part of installation. If Docker, Compose or required configuration
+is unavailable, report the exact blocker and safe next step without silently
+installing unrelated services.
+
+Finish with the installation path, configured local endpoints and checks run.
+Do not print secret values.
+```
 
 ## First scan
 

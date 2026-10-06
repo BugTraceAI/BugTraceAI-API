@@ -5,7 +5,7 @@ FROM debian:bookworm-slim
 
 LABEL maintainer="BugTraceAI Team"
 LABEL description="Fully automated API security testing platform (Kiterunner, x8, Schemathesis, OFFAT, vulnapi)"
-ARG APP_VERSION=1.4.4-beta
+ARG APP_VERSION=1.4.11-beta
 LABEL version="${APP_VERSION}"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 

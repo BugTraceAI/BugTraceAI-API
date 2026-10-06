@@ -1,5 +1,8 @@
 services:
   bugtrace-api:
+    # Kiterunner, x8 and VulnAPI are bundled as amd64 Linux binaries.
+    # ARM Docker hosts must build and run this service using amd64 emulation.
+    platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
@@ -22,7 +25,7 @@ services:
       # Provider is selected in config/apex.json. Set APEX_PROVIDER explicitly to pin it;
       # when empty, the WEB provider screen may switch the persisted runtime selection.
       # Providers are defined in config/providers/<id>.json (local | openrouter | zai | anthropic).
-      - APEX_ENABLED=true
+      - APEX_ENABLED=${APEX_ENABLED:-true}
       - APEX_PROVIDER=${APEX_PROVIDER:-}
       - APEX_MIN_SEVERITY=${APEX_MIN_SEVERITY:-info}
       # External providers read their key from the env var named in their JSON.
@@ -33,7 +36,7 @@ services:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       # Local Ollama fallback (used only when APEX_PROVIDER=local):
       - OLLAMA_URL=${OLLAMA_URL:-http://host.docker.internal:11434}
-      - APEX_MODEL=apex-master:latest
+      - APEX_MODEL=${APEX_MODEL:-apex-master:latest}
     volumes:
       - ./reports:/opt/bugtrace-api/reports
       # Persist provider selection and UI-managed keys across container rebuilds.
