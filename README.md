@@ -93,12 +93,29 @@ charges. Never paste API keys into an AI coding-agent chat.
 To let Codex, Claude Code, Cursor or another local terminal agent launch this
 flow, give it the following prompt:
 
-> Install BugTraceAI using the official universal Launcher. Read this
-> README and the Launcher README, run the official install command above in my
-> terminal, and let me interact with the TUI. I will enter and verify the
-> provider key locally, choose Wizard or AI, and select the modules and runtime.
-> Do not ask for secrets in chat or start a scan. Verify the selected
-> installation and report any checks that could not be completed.
+```text
+Install BugTraceAI-API only on this machine using the official universal Launcher.
+
+First read:
+https://github.com/BugTraceAI/BugTraceAI-API#readme
+https://github.com/BugTraceAI/BugTraceAI-Launcher#readme
+
+Follow those instructions using the official installer:
+https://raw.githubusercontent.com/BugTraceAI/BugTraceAI-Launcher/main/install.sh
+
+Select only BugTraceAI-API. Do not select BugTraceAI-WEB or BugTraceAI-CLI.
+This is the independent API-target scanner, not the CLI web-scanning API.
+Let me choose Wizard or Install with AI if supported by my provider.
+
+Preserve any existing installation, configuration and data. Run the
+Launcher in my local interactive terminal. I will enter and verify the
+provider API key there, choose ports and review the plan before installation.
+Keep credentials out of chat and logs. Do not start a scan.
+
+Verify /health, /docs and the MCP endpoint on the configured ports.
+Report the installation location, launch commands, checks completed
+and any checks still pending.
+```
 
 For direct setup in this checkout, use the Compose path below or
 `./scripts/install-runtime.sh` after configuring `.env`. The Launcher is the
@@ -187,7 +204,15 @@ universal Launcher), give this prompt to an agent with terminal access. For
 the guided flow, use the prompt above and select only the modules you need.
 
 ```text
-Install the standalone BugTraceAI-API service from this repository.
+Install only the standalone BugTraceAI-API service from:
+https://github.com/BugTraceAI/BugTraceAI-API
+
+First read:
+https://github.com/BugTraceAI/BugTraceAI-API#readme
+https://github.com/BugTraceAI/BugTraceAI-API/blob/main/INSTALLATION.md
+
+Use an existing checkout of that public repository if available; otherwise
+clone it into a new directory. Enter that directory before running setup.
 
 Read README.md, SECURITY.md and the Docker Compose configuration first. Keep
 the installation in this checkout, preserve existing files and configuration,
