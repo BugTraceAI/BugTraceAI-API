@@ -72,11 +72,33 @@ to install any BugTraceAI product from one visual menu:
 curl -fsSL https://raw.githubusercontent.com/BugTraceAI/BugTraceAI-Launcher/main/install.sh | bash
 ```
 
-Choose `api` for this independent API-target scanner, or `web` for WEB plus
-both scanning engines; `full` also includes the CLI terminal TUI. The CLI
-web-scanning API/MCP backend is a separate product. Launcher 3.3.14+ supports
-component entry points: `./install.sh` and bare `./setup.sh` open that same
-menu with `api` suggested. Review the selection before installing.
+Choose the API module for this independent API-target scanner. WEB and CLI are
+separate modules and can be checked independently; the `web` suggestion starts
+with WEB only, while `full` preselects WEB, CLI, API and the CLI terminal TUI.
+The CLI web-scanning API/MCP backend is a separate product. Launcher 3.3.14+
+supports component entry points: `./install.sh` and bare `./setup.sh` open
+that same menu with API suggested. Use 3.3.26 for the current provider, Wizard
+and AI-assisted setup screens.
+
+The first screen asks for a provider API key and verifies it locally. Then
+choose **Install with Wizard** for the guided module and port selection, or
+**Install with AI** to use the built-in assistant inside the TUI. AI setup
+currently supports API-only or the full WEB + CLI + API selection, including
+the CLI TUI, with OpenRouter or Anthropic; use Wizard for other combinations
+and for Z.ai. AI installation makes provider model calls and may incur usage
+charges. Never paste API keys into an AI coding-agent chat.
+
+### Install with your AI coding agent
+
+To let Codex, Claude Code, Cursor or another local terminal agent launch this
+flow, give it the following prompt:
+
+> Install BugTraceAI using the official universal Launcher. Read this
+> README and the Launcher README, run the official install command above in my
+> terminal, and let me interact with the TUI. I will enter and verify the
+> provider key locally, choose Wizard or AI, and select the modules and runtime.
+> Do not ask for secrets in chat or start a scan. Verify the selected
+> installation and report any checks that could not be completed.
 
 For direct setup in this checkout, use the Compose path below or
 `./scripts/install-runtime.sh` after configuring `.env`. The Launcher is the
@@ -158,11 +180,11 @@ The Launcher configures ports and the shared Docker network. A profile preview
 does not download products, install dependencies or start services. Use the
 configured REST port instead of 8005 if you change the standalone default.
 
-### Install with your AI coding agent
+### Direct standalone install with your AI coding agent
 
-For a standalone API-target scanner, give this prompt to an agent with terminal
-access. To install the connected WEB platform instead, ask the agent to use the
-Launcher `web` profile (Launcher 3.3.14+).
+For a direct standalone API-target installation in this checkout (without the
+universal Launcher), give this prompt to an agent with terminal access. For
+the guided flow, use the prompt above and select only the modules you need.
 
 ```text
 Install the standalone BugTraceAI-API service from this repository.
