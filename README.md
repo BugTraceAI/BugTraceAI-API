@@ -12,9 +12,11 @@
 [![Docker](https://img.shields.io/badge/Docker-recommended-2496ed.svg)](https://www.docker.com/)
 [![Interfaces](https://img.shields.io/badge/interfaces-REST%20%7C%20MCP-14b8a6.svg)](#interfaces)
 
-BugTraceAI-API is the independent API-testing engine in the BugTraceAI ecosystem. It discovers API routes, resolves OpenAPI contracts, runs controlled security checks, correlates evidence, investigates hypotheses and produces portable reports.
+BugTraceAI-API is the independent API-testing engine in the [BugTraceAI suite](https://github.com/BugTraceAI/BugTraceAI). It discovers API routes, resolves OpenAPI contracts, runs controlled security checks, correlates evidence, investigates hypotheses and produces portable reports.
 
-It does **not** require BugTraceAI-WEB or BugTraceAI-CLI. Run it on a server, drive it through REST or MCP, and retrieve the complete result set through the same API. WEB is an optional visual client; CLI handoff is an optional downstream workflow.
+It does **not** require BugTraceAI-WEB or BugTraceAI-CLI. Run it on a server, drive it through REST or MCP, and retrieve the complete result set through the same API. [WEB](https://github.com/BugTraceAI/BugTraceAI-WEB) is an optional visual client; [CLI](https://github.com/BugTraceAI/BugTraceAI-CLI) handoff is an optional downstream workflow.
+
+[Install](#installation) · [See the workspace](#visual-overview) · [REST and MCP](#interfaces) · [Configure AI providers](#ai-providers) · [Explore the suite](https://github.com/BugTraceAI/BugTraceAI)
 
 > [!CAUTION]
 > Use BugTraceAI-API only against systems you own or are explicitly authorized to test. `audit` mode can send mutating HTTP methods and may change target data.
@@ -77,15 +79,15 @@ separate modules and can be checked independently; the `web` suggestion starts
 with WEB only, while `full` preselects WEB, CLI, API and the CLI terminal TUI.
 The CLI web-scanning API/MCP backend is a separate product. Launcher 3.3.14+
 supports component entry points: `./install.sh` and bare `./setup.sh` open
-that same menu with API suggested. Use 3.3.26 for the current provider, Wizard
+that same menu with API suggested. Use the [current public Launcher release](https://github.com/BugTraceAI/BugTraceAI-Launcher/releases) for its provider, Wizard
 and AI-assisted setup screens.
 
 The first screen asks for a provider API key and verifies it locally. Then
 choose **Install with Wizard** for the guided module and port selection, or
 **Install with AI** to use the built-in assistant inside the TUI. AI setup
-currently supports API-only or the full WEB + CLI + API selection, including
-the CLI TUI, with OpenRouter or Anthropic; use Wizard for other combinations
-and for Z.ai. AI installation makes provider model calls and may incur usage
+uses OpenRouter or Anthropic; use Wizard for Z.ai. See the
+[current Launcher guide](https://github.com/BugTraceAI/BugTraceAI-Launcher#readme)
+for supported module combinations and installation options. AI installation makes provider model calls and may incur usage
 charges. Never paste API keys into an AI coding-agent chat.
 
 ### Install with your AI coding agent
